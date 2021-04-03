@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+           <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@700&family=Dancing+Script:wght@400;600&family=Lato:wght@900&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+            
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        <style>
+            html, body{
+                font-family: 'Lato', sans-serif;
+            }
+        </style>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{path('blog')}}">My Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{path('blog')}}">Article
+                <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            {% if app.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('article_new')}}"> Article Schreiben</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">herzlich willkommen : {{app.user.firstName}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('app_logout')}}">Abmelden</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('app_login')}}">Anmelden</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('registration')}}">Registrations</a>
+            </li>
+            {%endif%}
+
+            </ul>
+        </div>
+        </nav>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>    
+
+    </body>
+</html>
